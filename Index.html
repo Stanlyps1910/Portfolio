@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stanly's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --background: #f0f0f0;
+      --text: #222;
+      --accent: #ff6584;
+    }
+
+    body.dark {
+      --background: #121212;
+      --text: #eee;
+      --primary: #4e4eff;
+      --accent: #ff4f6f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes floatImage {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: linear-gradient(-45deg, #6C63FF, #ff6584, #4e4eff, #ff4f6f);
+      background-size: 400% 400%;
+      animation: gradientMove 8s ease infinite;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      position: relative;
+    }
+
+    header img {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 8px solid white;
+      object-fit: cover;
+      margin-bottom: 20px;
+      animation: floatImage 4s ease-in-out infinite, fadeIn 1.5s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    nav {
+      background: rgb(251, 125, 125);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 15px 0;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+
+    .about p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .project {
+      background: rgb(254, 120, 120);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+    }
+
+    .project h3 {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .dark-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #f3f3f3;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .dark-toggle:hover {
+      background: #ddd;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .social-item img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 8px;
+    }
+
+    .social-item:hover {
+      transform: translateY(-5px);
+      color: var(--primary);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    /* Keep nav as it is on desktop */
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text);
+  position: absolute;
+  left: 20px;
+  top: 10px;
+}
+
+/* Hide menu by default on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: rgb(251, 125, 125);
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .nav-links a {
+    padding: 12px;
+    text-align: center;
+    display: block;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  nav {
+    position: relative;
+    padding: 10px 0;
+  }
+}
+/* Desktop nav link spacing */
+@media (min-width: 769px) {
+  .nav-links {
+    display: flex;
+    gap: 40px; /* adjust spacing as you like */
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text);
+  }
+}
+
+
+
+    /* Post & Gallery */
+    .post {
+      margin: 40px auto;
+      padding: 20px;
+      background: rgb(254, 120, 120);
+      border-radius: 12px;
+      max-width: 800px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .post h3 {
+      margin-bottom: 15px;
+      color: var(--primary);
+      text-align: center;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .gallery-item {
+      aspect-ratio: 16/9;   /* Equal aspect ratio for thumbnails */
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item img:hover {
+      transform: scale(1.05);
+    }
+    .description {
+      margin-top: 15px;
+      text-align: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+    }
+    .lightbox .prev, .lightbox .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      user-select: none;
+    }
+    .lightbox .prev { left: 30px; }
+    .lightbox .next { right: 30px; }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="dark-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+    <img src="https://raw.githubusercontent.com/Stanlyps1910/profile-photo/main/Picsart_25-08-07_20-22-35-675.png" 
+         alt="Profile Photo"
+         onerror="this.src='https://via.placeholder.com/150?text=Profile'">
+    <h1>Stanly P S</h1>
+    <p>A passionate Web Developer who creates beautiful and functional websites.</p>
+  </header>
+
+<nav>
+  <div class="nav-container">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#resume">Resume</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#gallery">Achievements Gallery</a>
+      <a href="#github">GitHub</a>
+      <a href="#smedia">Social Media</a>
+    </div>
+  </div>
+</nav>
+
+
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>I'm a self-driven developer who enjoys crafting intuitive and impactful digital experiences. I specialize in front-end development and have a strong eye for design, accessibility, and performance.</p>
+  </section>
+
+  <section id="resume">
+    <h2>Resume</h2>
+    <p style="text-align:center;">Download my resume below:</p>
+    <div style="text-align:center;">
+      <a href="https://drive.google.com/uc?export=download&id=17WKXuAmGxLuY71ZZtetoeX8fp-yxqUYa" download class="contact-button">Download Resume</a>
+    </div>
+  </section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills-list">
+    <p><strong>Languages & Technologies:</strong> HTML, CSS, JavaScript, Java, Python, C, C++, C#, .NET Framework.</p>
+    <p><strong>Frameworks & Libraries:</strong> React, Node.js.</p>
+    <p><strong>Knowledge Areas:</strong> Network Architecture, Operating Systems, Cybersecurity.</p>
+    <p><strong>Certifications:</strong> AWS Cloud Practitioner.</p>
+    <p><strong>Tools:</strong> Git, GitHub, VS Code.</p>
+    <p><strong>Soft Skills:</strong> Public Speaking, Problem Solving, Communication, Teamwork, Leadership, Managerial Ability, Humor & Storytelling (Stand-up Comedy).</p>
+    <p><strong>Linguistic Knowledge:</strong> English (Fluent), Hindi (Proficient), Kannada (Proficient), Malayalam (Fluent), Tamil (Intermediate).</p>
+    <p><strong>Hobbies:</strong> Learning Piano, Videography, Video Editing.</p>
+  </div>
+</section>
+
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>Portfolio Website</h3>
+        <p>A clean, modern portfolio built using HTML, CSS, and a sprinkle of creativity.</p>
+      </div>
+      <div class="project">
+        <h3>PayTm Frontend</h3>
+        <p>Made a realistic PayTM frontend with HTML and CSS .</p>
+        <p>Check out the project on <a href="https://paitm-frontend.netlify.app/" target="_blank">Netlify</a>.</p>
+      </div>
+      <div class="project">
+        <h3>PDF to Audio Converter</h3>
+        <p>A responsive code which reads your PDF and gives an audio output.</p>
+        <p>Check out the project on <a href="https://github.com/Stanlyps1910/Audio-Book-Python" target="_blank">GitHub</a>.</p>
+      </div>
+      <div class="project">
+        <h3>Air Space Shooting Game</h3>
+        <p>A responsive game which lets you Shoot Missiles coming towards a Rocket.</p>
+        <p>Check out the project on <a href="https://air-space-shooting-game.netlify.app/" target="_blank">Netlify</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements & Certifications</h2>
+    <ul>
+      <li>Internship from <b>SkillCraft Technology</b> as <u>Prompt Engineering Intern</u> - 2025</li>
+      <li>Internship from <b>Redynox</b> as <u>Cybrsecurity Intern</u> - 2025</li>
+      <li><b>2nd Place</b> (Phishing Simulation) - Elixir 2025, St. Joseph's University</li>
+      <li>Presented <b>Research Paper</b> on "The impact of Advanced Technologies in Industry 4.0 and Industrial Internet of Things in Smart Manufacturing" - 2025</li>
+      <li>Introduction to Industry 4.0 and IIoT - NPTEL - 2025</li>
+      <li>Big Data Computing - NPTEL - 2024</li>
+      <li>Violent Python - Infosys SpringBoard - 2025</li>
+      <li>Creative Thinking - Tools and Techniques for Success - 2024</li>
+      <li>Introduction to Artificial Intelligence - 2024</li>
+      <li>AI & ML Training Course - 2024</li>
+      <li>AI in 3 Hours - 2024</li>
+      <li>Machine Learning in 3 Hours - 2024</li>
+      <li>Machine Learning Fundamentals</li>
+      <li>Insights of CyberSecurity - 2023</li>
+      <li>Introduction to Ethical Hacking - 2023</li>
+      <li><b>1st Place</b> in Marketing Strategy - 2023</li>
+    </ul>
+  </section>
+
+  <!-- Add this new section for LinkedIn-style posts -->
+<section id="gallery">
+  <h2 style="text-align:center; color:var(--primary);">Photo Posts</h2>
+
+
+  <!-- Example Post 6 -->
+  <div class="post">
+  <h3>Secured 2nd in Elixir</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17yEnrnqAHX3Fi4CtUWdpPoVwGn4ioaKU&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=17cJjRwRcbKq1qSXaxaf-xcIoKSr25VNt&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=1BiN9_Ko4z0DkXaKTQ4lnM_zQMXc7DJuK&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        Me and My Friends Together made up Team to Hack the private Cedentials of Users. LOL! nah Just Kidding, Realising the recent concerns rising in the field of Cyber Crimes , We gave it a try to Show People how Phishing actually Works. It was an Effort to educate people. Finally, We Made it to 2nd from the Department of IT , competing with around 15-20 exhibits at Elixir 2025. It Was an Honour to Have recieved cash prize from the Vice-Chancellor of St. Joseph's Uiversity Rev Fr. Victor Lobo SJ.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Example Post 3 -->
+  <div class="post">
+  <h3>Presenting Research Paper</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17SCHpU2aKPL-fJVq6KlI_qIiNwILcLZU&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=17PO2GNhh8v3GS5y4iYDKPSlEuVOyKaUU&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=16f7xuMYB13UiCxCGorSvJJt29Bx4vXca&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        I'm thrilled to announce I Presented My Research Paper on the topic "The Impact of Industry 4.0 and Industrial Internet of Things in Smart Manufacturing" at ICCTIT 2025 held at St. Joseph's University, Bengaluru"
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Example Post 5 -->
+  <div class="post">
+  <h3>Secured Distinction</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17DI3UlBTV8Twcyg0E89D6zgr4NXdb8Yu&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=1BeM6xcivIb0kOhG02ebzKV1cy5TTKLKa&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=1BchJwIGxXjK976cNl0GENWgfkW7PZC55&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        After 2 Years of Learning and Fun, It was finally time to say a goodbye to my Pre-University Life. Once we finished our Exams and Recieved Results in the Year 2023, My University awarded all students Who Secured Distinction in their Final Exams. I'm Happy to announce, I was one of Them. Greatful to have Recieved Award from the Chairman of Reva University Sir P Shyama Raju.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Example Post 2 -->
+  <div class="post">
+  <h3>First in Marketing Strategy</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=1B_zwuY0OUMmVqjQyZbBuf_g-MgXunIZR&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=17BBaPM9mBfa-rQf8c9RX0uQGFlB5eX9M&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17Jxqs26YVA1riaR8c9yFQrvo5USYhwiO&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        The day we put our fullest and Finally made it to Top 1 among several Teams. Back when I was a Commerce student, We took Part in Marketing Strategy, after several rounds of participations and competitors, We Made it to First from Reva University, Bengaluru.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Example Post 7 -->
+  <div class="post">
+  <h3>Recieving prize from Bishop</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17AUcH-f1uRW6GET6l7jvA2ZwE-W_Wj7s&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=17Bltk-NBqo5KZRCSNxPnL-J7oQ8IPBZY&sz=w1000" data-index="1" data-post="1">
+      </div>
+    </div>
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        I very much Love to take Part in the events conducted by My Parish or My Diocese. A number of Parishes form Forane , A number of Foranes form a Diocese. And Starting from my Parish, I made it up till the Diocese, I secured 3rd from Throughout the Diocese in Story Writing Competition 2022. Greatful to have Recieved Award From the Bishop of Mandya Diocese Mar. Sebastian Adayantharath. 
+      </p>
+    </div>
+  </div>
+</div>
+
+  <!-- Example Post 1 -->
+  <div class="post">
+    <h3>Annual Day Awards</h3>
+  
+  <div class="post-content">
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=17zY5ubEALJRka_thC4Vu8DpV8iUaIKtq&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=174tzlz2HCsOzv2ug7tHdghZP3Iu6sDmB&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=175sjvGKgvcM0zaGXWX2Yi40HqiTndtnW&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+
+    <div class="description">
+      <p>
+        It was back in 2022 where for the Annual Day of my Parish ,Saints Joseph and Claret Church, T Dasarahalli . I Recieved Awards and Medals for taking part in various Events Organized by the Diocese Of Mandya. It was an Honour to Recieve Prize from Miss. Rosa Kutty who is an Indian Athlete who took part in the olympics 1996 and 2000. 
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Example Post 4 -->
+  <div class="post">
+  <h3>Repersenting My Parish</h3>
+  
+  <div class="post-content">
+    <!-- Left column: Gallery -->
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=16iq25x2dUFRJzdZzY6mYi-l5XkyNhXg1&sz=w1000" data-index="0" data-post="1">
+      </div>
+      <div class="gallery-item">
+         <img src="https://drive.google.com/thumbnail?id=16jAG2HiY89XGSdcIDtnvO03zZFPtUVbH&sz=w1000" data-index="1" data-post="1">
+
+      </div>
+      <div class="gallery-item">
+        <img src="https://drive.google.com/thumbnail?id=16sXXfInr66YMZVwCCECKl32BHkhJWd6v&sz=w1000" data-index="2" data-post="1">
+      </div>
+    </div>
+
+    <!-- Right column: Description -->
+    <div class="description">
+      <p>
+        The Greatest part of Being a Christian is, our Parish gives great Opportunities for their Children to Develop in all Aspects. Hence, I took part in various Events repersenting my Parish and finally Recieved Prize for Winning in Those Events.
+      </p>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close">&times;</span>
+  <span class="prev">&#10094;</span>
+  <img src="" alt="Expanded Photo">
+  <span class="next">&#10095;</span>
+</div>
+
+
+  <section id="github">
+    <h2>GitHub Contributions</h2>
+    <p style="text-align:center;">Check out my projects on <a href="https://github.com/Stanlyps1910" target="_blank">GitHub</a>.</p>
+  </section>
+
+  <section id="smedia" class="smedia">
+    <h2>Social Media</h2>
+    <div class="social-buttons">
+      <a href="https://www.linkedin.com/in/stanlyps" target="_blank" class="social-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/LinkedIn_2021.svg" alt="LinkedIn" />
+        <span>LinkedIn</span>
+      </a>
+      <a href="mailto:stanlyedushybu@gmail.com" class="social-item" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email" />
+        <span>Email</span>
+      </a>
+      <a href="https://github.com/Stanlyps1910" target="_blank" class="social-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" />
+        <span>GitHub</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Stanly P S. All Rights Reserved.
+  </footer>
+
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const closeBtn = lightbox.querySelector('.close');
+    const prevBtn = lightbox.querySelector('.prev');
+    const nextBtn = lightbox.querySelector('.next');
+
+    let currentIndex = 0;
+    let images = [];
+
+    document.querySelectorAll('.gallery').forEach(gallery => {
+      const galleryImgs = gallery.querySelectorAll('img');
+      galleryImgs.forEach((img, index) => {
+        img.dataset.index = index;
+        img.addEventListener('click', () => {
+          images = galleryImgs;
+          currentIndex = index;
+          openLightbox();
+        });
+      });
+    });
+
+    function openLightbox() {
+      lightbox.classList.add('active');
+      showImage();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+    }
+
+    function showImage() {
+      lightboxImg.src = images[currentIndex].src;
+    }
+
+    function nextImage() {
+      if (currentIndex < images.length - 1) {
+        currentIndex++;
+        showImage();
+      }
+    }
+
+    function prevImage() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showImage();
+      }
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', nextImage);
+    prevBtn.addEventListener('click', prevImage);
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+      if (e.key === "Escape") closeLightbox();
+    });
+
+    function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('active');
+}
+
+  </script>
+</body>
+</html>
